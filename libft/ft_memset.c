@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umoff <umoff@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mapryl <mapryl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/14 17:53:08 by umoff             #+#    #+#             */
-/*   Updated: 2019/05/21 14:34:23 by umoff            ###   ########.fr       */
+/*   Created: 2019/04/02 19:52:18 by mapryl            #+#    #+#             */
+/*   Updated: 2019/05/04 17:16:02 by mapryl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 
 void	*ft_memset(void *b, int c, size_t len)
 {
-	size_t			i;
-	unsigned char	*buf;
+	unsigned char *ptr;
+	unsigned char symb;
 
-	i = 0;
-	buf = (unsigned char *)b;
-	while (i < len)
+	ptr = (unsigned char *)b;
+	symb = (unsigned char)c;
+	while (len--)
 	{
-		buf[i] = (unsigned char)c;
-		i++;
+		*(ptr++) = symb;
 	}
 	return (b);
 }

@@ -1,25 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnew.c                                        :+:      :+:    :+:   */
+/*   ft_isblank.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umoff <umoff@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mapryl <mapryl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/18 21:50:58 by umoff             #+#    #+#             */
-/*   Updated: 2019/05/21 14:34:23 by umoff            ###   ########.fr       */
+/*   Created: 2019/04/29 10:34:38 by mapryl            #+#    #+#             */
+/*   Updated: 2019/05/04 16:56:02 by mapryl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-char	*ft_strnew(size_t size)
+int		ft_isblank(int c)
 {
-	char	*str;
-
-	if (size + 1 < size)
-		return (NULL);
-	if (!(str = (char *)malloc(sizeof(char) * (size + 1))))
-		return (NULL);
-	ft_bzero(str, size + 1);
-	return (str);
+	return (c == '\t' || c == ' ');
 }

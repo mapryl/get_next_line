@@ -3,62 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umoff <umoff@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mapryl <mapryl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/20 20:13:01 by umoff             #+#    #+#             */
-/*   Updated: 2019/05/21 14:34:23 by umoff            ###   ########.fr       */
+/*   Created: 2019/04/29 10:48:52 by mapryl            #+#    #+#             */
+/*   Updated: 2019/05/04 19:57:58 by mapryl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*delete_space(char const *s)
+char	*ft_strtrim(char const *s)
 {
-	int		i;
-	int		j;
-	char	*buf;
-	char	*box;
+	char	*result;
+	size_t	i;
+	size_t	start;
+	size_t	end;
 
+	if (!s)
+		return (NULL);
 	i = 0;
-	j = 0;
-	if ((box = ft_strnew(ft_strlen(s))) == '\0')
-		return (0);
-	if ((buf = ft_strnew(ft_strlen(s))) == '\0')
-		return (0);
-	while (s[i] != '\0' && (s[i] == ' ' || s[i] == '\n' || s[i] == '\t'))
-		i++;
-	while (s[i] != '\0')
-		buf[j++] = s[i++];
-	while (j != 0 && (buf[j] == ' ' || buf[j] == '\n' || buf[j] == '\t'
-												|| buf[j] == '\0'))
-		j--;
-	i = 0;
-	while (i <= j)
-	{
-		box[i] = buf[i];
-		i++;
-	}
-	return (box);
-}
-
-char		*ft_strtrim(char const *s)
-{
-	char	*res;
-	char	*bask;
-	int		j;
-
-	if (s == '\0')
-		return (0);
-	if ((bask = ft_strnew(ft_strlen(s))) == '\0')
-		return (0);
-	bask = delete_space(s);
-	if ((res = ft_strnew(ft_strlen(bask))) == '\0')
-		return (0);
-	j = 0;
-	while (bask[j] != '\0')
-	{
-		res[j] = bask[j];
-		j++;
-	}
-	return (res);
+	start = 0;
+	end = ft_strlen(s);
+	while (s[start] && (ft_isblank(s[start]) || s[start] == '\n'))
+		start++;
+	while (end && (s[end - 1] == ' ' ||
+				s[end - 1] == '\t' || s[end - 1] == '\n'))
+		end--;
+	if (end > start)
+		result = ft_strnew(end - start);
+	else
+		result = ft_strnew(0);
+	if (!result)
+		return (NULL);
+	while (start < end)
+		result[i++] = s[start++];
+	result[i] = '\0';
+	return (result);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umoff <umoff@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mapryl <mapryl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/07 14:51:16 by umoff             #+#    #+#             */
-/*   Updated: 2019/05/21 14:34:23 by umoff            ###   ########.fr       */
+/*   Created: 2019/04/03 20:30:40 by mapryl            #+#    #+#             */
+/*   Updated: 2019/05/04 17:59:42 by mapryl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	char *pos;
+	char *last_pos;
 
-	pos = 0;
-	while (*s != '\0')
+	last_pos = 0;
+	while (*s)
 	{
 		if (*s == c)
-			pos = (char *)s;
-		++s;
+			last_pos = (char*)s;
+		s++;
 	}
-	if (pos != '\0')
-		return ((char *)pos);
+	if (last_pos)
+		return (last_pos);
 	if (c == '\0')
-		return ((char *)s);
-	return (0);
+		return ((char*)s);
+	return (NULL);
 }

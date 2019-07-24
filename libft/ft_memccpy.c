@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umoff <umoff@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mapryl <mapryl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/16 14:29:17 by umoff             #+#    #+#             */
-/*   Updated: 2019/05/21 14:34:23 by umoff            ###   ########.fr       */
+/*   Created: 2019/04/03 19:42:32 by mapryl            #+#    #+#             */
+/*   Updated: 2019/05/04 17:10:36 by mapryl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	size_t	i;
+	unsigned char	*d;
+	unsigned char	*s;
+	unsigned char	symb;
 
-	i = 0;
-	while (i < n)
+	d = (unsigned char *)dst;
+	s = (unsigned char *)src;
+	symb = (unsigned char)c;
+	while (n--)
 	{
-		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
-		if (((unsigned char *)dst)[i] == (unsigned char)c)
-			return ((void *)&dst[i + 1]);
-		i++;
+		*d++ = *s++;
+		if (*(d - 1) == symb)
+			return (d);
 	}
-	return (0);
+	return (NULL);
 }

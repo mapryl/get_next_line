@@ -3,35 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umoff <umoff@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mapryl <mapryl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/07 12:35:02 by umoff             #+#    #+#             */
-/*   Updated: 2019/05/21 14:34:23 by umoff            ###   ########.fr       */
+/*   Created: 2019/04/29 10:46:47 by mapryl            #+#    #+#             */
+/*   Updated: 2019/05/04 17:30:48 by mapryl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr(const char *old_s, const char *new_s, size_t n)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	unsigned int i;
-	unsigned int j;
+	char	*big_str;
+	size_t	little_len;
+	size_t	j;
+	size_t	i;
 
-	if (!*new_s)
-		return ((char*)old_s);
+	big_str = (char*)big;
+	little_len = ft_strlen(little);
+	if (little_len == 0)
+		return (big_str);
+	if (ft_strlen(big) < little_len || len < little_len)
+		return (NULL);
 	i = 0;
-	while (old_s[i] != '\0' && (size_t)i < n)
+	while (big_str[i] && i <= len - little_len)
 	{
-		if (old_s[i] == new_s[0])
-		{
-			j = 1;
-			while ((new_s[j] != '\0') && (old_s[i + j] == new_s[j])
-			&& (size_t)(i + j) < n)
-				j++;
-			if (new_s[j] == '\0')
-				return ((char*)&old_s[i]);
-		}
+		j = 0;
+		while (little[j] && little[j] == big_str[i + j])
+			j++;
+		if (j == little_len)
+			return (&big_str[i]);
 		i++;
 	}
-	return (0);
+	return (NULL);
 }

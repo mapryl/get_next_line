@@ -3,49 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umoff <umoff@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mapryl <mapryl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/23 21:33:17 by umoff             #+#    #+#             */
-/*   Updated: 2019/05/21 14:34:23 by umoff            ###   ########.fr       */
+/*   Created: 2019/04/28 20:23:11 by mapryl            #+#    #+#             */
+/*   Updated: 2019/05/04 16:58:01 by mapryl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int	len_number(int n)
+static size_t	str_len(int n)
 {
-	int	len;
+	size_t			i;
 
-	len = 1;
-	while ((n = n / 10))
-		len++;
-	return (len);
+	i = 1;
+	while (n /= 10)
+		i++;
+	return (i);
 }
 
-char		*ft_itoa(int n)
+char			*ft_itoa(int n)
 {
-	char			*buf;
-	int				len;
-	unsigned int	num;
+	char			*str;
+	size_t			length;
+	unsigned int	number;
 
-	len = len_number(n);
-	num = n;
+	length = str_len(n);
+	number = n;
 	if (n < 0)
 	{
-		num = -n;
-		len++;
+		number = -n;
+		length++;
 	}
-	if (!(buf = ft_strnew(len)))
+	str = ft_strnew(length);
+	if (!str)
 		return (NULL);
-	buf[len--] = '\0';
-	buf[len--] = num % 10 + '0';
-	while (len != -1)
-	{
-		num = num / 10;
-		buf[len] = num % 10 + '0';
-		len--;
-	}
+	str[length] = '\0';
+	length--;
+	str[length--] = number % 10 + '0';
+	while (number /= 10)
+		str[length--] = number % 10 + '0';
 	if (n < 0)
-		buf[0] = '-';
-	return (buf);
+		str[0] = '-';
+	return (str);
 }

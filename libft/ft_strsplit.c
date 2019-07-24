@@ -3,78 +3,78 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umoff <umoff@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mapryl <mapryl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/22 20:01:35 by umoff             #+#    #+#             */
-/*   Updated: 2019/05/21 14:34:23 by umoff            ###   ########.fr       */
+/*   Created: 2019/04/29 10:47:04 by mapryl            #+#    #+#             */
+/*   Updated: 2019/05/17 21:37:31 by mapryl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_words(char const *s, char c)
+static size_t		ft_words(char const *str, char c)
 {
-	size_t w;
+	size_t word;
 
-	w = 0;
-	while (*s)
+	word = 0;
+	while (*str)
 	{
-		if (*s != c)
-			w++;
-		while (*s != c && *(s + 1))
-			s++;
-		s++;
+		if (*str != c)
+			word++;
+		while (*str != c && *(str + 1))
+			str++;
+		str++;
 	}
-	return (w);
+	return (word);
 }
 
-static size_t	ft_letter(char const **s, char c)
+static size_t		ft_letter(char const **str, char c)
 {
-	size_t l;
+	size_t len;
 
-	if (*s == '\0')
+	if (*str == '\0')
 		return (0);
-	l = 0;
-	while (**s != '\0' && **s == c)
-		(*s)++;
-	while (**s != '\0' && **s != c)
+	len = 0;
+	while (**str != '\0' && **str == c)
+		(*str)++;
+	while (**str != '\0' && **str != c)
 	{
-		(*s)++;
-		l++;
+		(*str)++;
+		len++;
 	}
-	return (l);
+	return (len);
 }
 
-static void		ft_fresh_str(char ***s)
+static void			ft_fresh_str(char ***str)
 {
-	while (**s != '\0')
+	while (**str != '\0')
 	{
-		free(**s);
-		s++;
+		free(**str);
+		str++;
 	}
-	free(*s);
-	*s = NULL;
+	free(*str);
+	*str = NULL;
 }
 
-char			**ft_strsplit(char const *s, char c)
+char				**ft_strsplit(char const *str, char c)
 {
-	char	**array_str;
-	size_t	i;
-	size_t	count_word;
-	size_t	len_word;
+	char		**array_str;
+	size_t		i;
+	size_t		count_word;
+	size_t		len_word;
 
-	if (!s)
+	if (!str)
 		return (0);
-	count_word = ft_words(s, c);
+	count_word = ft_words(str, c);
 	if (!(array_str = (char**)malloc(sizeof(char*) * (count_word + 1))))
 		return (0);
 	i = 0;
 	while (i < count_word)
 	{
-		len_word = ft_letter(&s, c);
+		len_word = ft_letter(&str, c);
 		if (len_word == 0)
 			return (0);
-		if (!(array_str[i] = ft_strndup(s - len_word, len_word)))
+		if (!(array_str[i] = ft_strndup(str - len_word, len_word)))
 		{
 			ft_fresh_str(&array_str);
 			return (0);

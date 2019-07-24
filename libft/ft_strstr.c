@@ -3,32 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umoff <umoff@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mapryl <mapryl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/05 19:57:59 by umoff             #+#    #+#             */
-/*   Updated: 2019/05/21 14:34:23 by umoff            ###   ########.fr       */
+/*   Created: 2019/04/03 20:35:16 by mapryl            #+#    #+#             */
+/*   Updated: 2019/05/04 18:27:58 by mapryl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strstr(const char *old_s, const char *new_s)
+char	*ft_strstr(const char *big, const char *little)
 {
-	unsigned int i;
-	unsigned int j;
+	size_t i;
+	size_t j;
 
-	if (!*new_s)
-		return ((char*)old_s);
+	if (!ft_strlen(little))
+		return ((char*)big);
 	i = 0;
-	while (old_s[i] != '\0')
+	while (big[i])
 	{
-		if (old_s[i] == new_s[0])
+		if (big[i] == little[0])
 		{
 			j = 1;
-			while ((new_s[j] != '\0') && (old_s[i + j] == new_s[j]))
+			while (little[j] && big[i + j] == little[j])
 				j++;
-			if (new_s[j] == '\0')
-				return ((char*)&old_s[i]);
+			if (little[j] == '\0')
+				return ((char*)&big[i]);
 		}
 		i++;
 	}

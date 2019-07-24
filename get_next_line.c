@@ -1,17 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mapryl <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/07/24 15:02:18 by mapryl            #+#    #+#             */
+/*   Updated: 2019/07/24 15:16:02 by mapryl           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-static char	**empty_line(char **stack)
+static char	**add_file(char **stack)
 {
 	if (*stack == NULL)
 		*stack = ft_strnew(0);
 	return (stack);
 }
 
-static void	new_string(char **stack, char *buf)
+static void	new_string(char **stack, char *buffer)
 {
 	char *temp;
 
-	temp = ft_strjoin(*stack, buf);
+	temp = ft_strjoin(*stack, buffer);
 	free(*stack);
 	*stack = temp;
 }
@@ -44,20 +56,20 @@ static int	new_line(char **stack, char **line)
 
 int			get_next_line(const int fd, char **line)
 {
-	static char	*stack[FD_MAX];
-	char		buf[BUFF_SIZE + 1];
-	int			count;
+	static char	*fd_array[FD_MAX];
+	char		buffer[BUFF_SIZE + 1];
+	int			counter;
 
-	if (fd <= -1 || line == NULL || fd > FD_MAX || _read(fd, buf, 0) == -1)
+	if (fd <= -1 || line == NULL || fd > FD_MAX || read(fd, buffer, 0) == -1)
 		return (-1);
-	empty_line(&(stack[fd]));
-	while (!(ft_strchr(stack[fd], '\n')))
+	add_file(&(fd_array[fd]));
+	while (!(ft_strchr(fd_array[fd], '\n')))
 	{
-		count = _read(fd, buf, BUFF_SIZE);
-		buf[count] = '\0';
-		if (count == 0)
+		counter = read(fd, buffer, BUFF_SIZE);
+		buffer[counter] = '\0';
+		if (counter == 0)
 			break ;
-		new_string(&(stack[fd]), buf);
+		new_string(&(fd_array[fd]), buffer);
 	}
-	return (new_line(&(stack[fd]), line));
+	return (new_line(&(fd_array[fd]), line));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: umoff <umoff@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mapryl <mapryl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/06 19:24:46 by umoff             #+#    #+#             */
-/*   Updated: 2019/05/21 14:34:23 by umoff            ###   ########.fr       */
+/*   Created: 2019/04/29 10:39:00 by mapryl            #+#    #+#             */
+/*   Updated: 2019/05/04 17:04:24 by mapryl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 {
-	t_list *new_ptr;
+	t_list *node_to_apply;
 
-	new_ptr = lst;
-	while (new_ptr != NULL)
+	node_to_apply = lst;
+	while (node_to_apply != NULL)
 	{
-		(*f)(new_ptr);
-		new_ptr = new_ptr->next;
+		f(node_to_apply);
+		node_to_apply = node_to_apply->next;
 	}
 }
